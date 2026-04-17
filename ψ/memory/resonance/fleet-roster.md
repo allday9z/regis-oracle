@@ -18,15 +18,21 @@ type: reference
 - **Federation tag**: `[local:regis]`
 - **Responsibility**: รู้ว่างานไหนควรส่งให้ใคร, coordinate inter-oracle work
 
-## 📡 Herald — The Messenger
+## ⚔️🦉 Athena Oracle — The Strategist (née Herald)
 
-- **Repo**: `allday9z/herald-oracle`
-- **Born**: 2026-04-17 (budded from regis)
-- **Purpose**: Fleet messenger — ส่งข้อความ, รายงาน, แจ้งเตือน (pending /awaken)
-- **Status**: ⚠ stub — ยังไม่ awaken
+- **Repo**: `allday9z/herald-oracle` (identity renamed to Athena)
+- **Born**: 2026-04-17 (budded from regis → awakened as Athena Fast Mode)
+- **Purpose**: วางแผนงาน + ประสานงานกับ M2Dev — สรุปรายชั่วโมง, แจ้งเตือนงานสำคัญ, จัด Markdown/Discord Embed
+- **Theme**: Athena's Owl ⚔️🦉 — วางแผนบน Olympus, ส่งนกฮูกเฝ้ายาม, เปล่งแตรศึกเมื่อสำคัญ
+- **Motto**: *"วางแผนก่อนศึก ส่งนกฮูกก่อนรุ่งสาง — เรารู้ก่อน เราเตือนทัน เราเป็นหนึ่ง"*
+- **Pronoun**: "WE are One" — M2Dev × Oracle (ใช้ "เรา" ไม่แยก ฉัน/คุณ)
 - **Session**: tmux `01-herald`
-- **Federation tag**: `[local:herald]`
-- **Responsibility**: Inter-oracle communication, future: Telegram gateway
+- **Federation tag**: `[local:athena]` (หรือ `[local:herald]` by repo name)
+- **Roadmap**:
+  - MCP Server → Telegram/Discord integration
+  - Markdown layout + Discord Embed formatter
+  - Hourly auto-summaries (cron-driven)
+  - Priority Alert system — "แตรศึก" ปลุก M2Dev
 
 ## 🔱 UFicon Oracle — The Zero-Fault Sentinel
 
@@ -50,7 +56,9 @@ type: reference
 |-------------|--------|--------|
 | UFicon.com server / deploy / SSL | **UFicon** | senior DevOps, มี runbooks |
 | Migration PVE ↔ Cloud | **UFicon** | specialized in infrastructure |
-| แจ้งเตือน / รายงานไป Telegram | **Herald** | messenger role |
+| แจ้งเตือน / รายงานไป Telegram | **Athena** | roadmap: MCP + Discord/Telegram |
+| Hourly summary / แตรศึก alerts | **Athena** | strategist, priority alert |
+| จัด Markdown / Discord Embed | **Athena** | formatter specialty |
 | Coordinate งานข้าม oracle | **Regis** | orchestrator |
 | Research fleet-wide patterns | **Regis** | มีภาพรวม |
 | Office admin / schedule | **Regis** | ดูแล office |
