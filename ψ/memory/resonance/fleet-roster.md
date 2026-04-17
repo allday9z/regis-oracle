@@ -64,6 +64,64 @@ type: reference
 | Office admin / schedule | **Regis** | ดูแล office |
 | สำรวจ + วิจัยใหม่ | **Regis** → delegate | ตามบริบท |
 
+## 🔀 Work Distribution Protocol
+
+### 1. Routing Rules (authoritative)
+
+| Task type | Owner | Notes |
+|-----------|-------|-------|
+| UFicon.com infra — deploy, SSL, SSH, CI/CD, migration | **UFicon** | runbooks + rollback plans required |
+| PVE ↔ Cloud migrations | **UFicon** | specialized domain |
+| Alert / notification delivery (Discord, Telegram) | **Athena** | owns MCP gateway |
+| Hourly summaries, priority alerts ("แตรศึก") | **Athena** | cron-driven |
+| Markdown / Discord Embed formatting | **Athena** | formatter specialty |
+| Coordinating multi-oracle work | **Regis** | orchestrator — default entry |
+| Office admin, scheduling, fleet health | **Regis** | office keeper |
+| New research / one-off tasks | **Regis** → delegate if domain-specific | triage first |
+
+**Default**: เมื่อไม่แน่ใจ → ส่งมา Regis → Regis triage แล้ว delegate
+
+### 2. Escalation Chain
+
+```
+UFicon (infra event)
+   ↓  deploy fail / critical infra alert
+Athena (format + route)
+   ↓  Discord/Telegram embed with severity
+M2Dev (human)
+```
+
+- **UFicon → Athena**: payload = `{severity, summary, runbook_ref, rollback_status}`
+- **Athena → M2Dev**: format ตาม severity (info = hourly digest, critical = แตรศึก ping)
+- **Regis**: monitor + audit ทุก escalation, log ที่ `ψ/memory/` — ไม่แทรกถ้าไม่จำเป็น
+
+### 3. M2Dev Entry Points
+
+M2Dev สั่งงานจากที่ไหนก็ได้ — multiplex ตามสถานการณ์:
+
+| Command | Lands at | ใช้เมื่อ |
+|---------|----------|---------|
+| `tmux attach -t regis` | Regis (orchestrator) | ต้องการให้ coordinate / ไม่รู้จะส่งใคร |
+| `tmux attach -t uficon` | UFicon direct | infra work ที่มี context อยู่แล้ว |
+| `tmux attach -t 01-herald` | Athena direct | strategy / alert tuning |
+| `maw talk-to <oracle> "..."` | targeted | CLI one-liner, logs to chat UI |
+| `maw broadcast "..."` | ทุก Oracle | fleet-wide announcement / roll call |
+
+### 4. Memory Sync Cadence
+
+| Trigger | Scope | ทำโดย |
+|---------|-------|-------|
+| `/awaken` (oracle startup) | pull from orchestrator (regis) | each oracle |
+| `/rrr` end-of-session | push retrospective → regis | each oracle |
+| `/forward` handoff | push active context → regis | each oracle |
+| Manual `maw soul-sync <peer>` | bidirectional pull | on-demand |
+| New oracle joins fleet | full roster + first-contact protocol | regis broadcasts |
+
+**Peer topology** (current):
+- regis ⇄ herald/athena (bidirectional)
+- regis ⇄ uficon (bidirectional, introduced 2026-04-17)
+- herald ⇄ uficon (not yet — route via regis)
+
 ## 📞 Communication Patterns
 
 ### Direct
